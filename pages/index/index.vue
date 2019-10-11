@@ -56,45 +56,84 @@
 </template>
 
 <script>
+	var  graceChecker = require("../../common/graceChecker.js");
+	
+	function getDate(type) {
+		const date = new Date();
+
+		let year = date.getFullYear();
+		let month = date.getMonth() + 1;
+		let day = date.getDate();
+
+		if (type === 'start') {
+			year = year - 60;
+		} else if (type === 'end') {
+			year = year + 2;
+		}
+		month = month > 9 ? month : '0' + month;;
+		day = day > 9 ? day : '0' + day;
+
+		return `${year}-${month}-${day}`;
+	}
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				date: getDate({
+					format: true
+				}),
+				startDate: getDate('start'),
+				endDate: getDate('end'),
+				time: '12:01'
 			}
 		},
-		onLoad() {
-
-		},
 		methods: {
+			formSubmit: function(e) {
+				//将下列代码加入到对应的检查位置
+				//定义表单规则
+				var rule = [{
+						name: "nickname",
+						checkType: "string",
+						checkRule: "1,3",
+						errorMsg: "姓名应为1-3个字符"
+					},
+					{
+						name: "gender",
+						checkType: "in",
+						checkRule: "男,女",
+						errorMsg: "请选择性别"
+					}
+				];
+				//进行表单检查
+				var formData = e.detail.value;
+				var checkRes = graceChecker.check(formData, rule);
+				if (checkRes) {
+					uni.showToast({
+						title: "验证通过!",
+						icon: "none"
+					});
+				} else {
+					uni.showToast({
+						title: graceChecker.error,
+						icon: "none"
+					});
+				}
+			},
+			formReset: function(e) {
+				console.log("清空数据")
+				this.chosen = ''
+			}
+		},
 
+		bindDateChange: function(e) {
+			this.date = e.target.value
+		},
+		bindTimeChange: function(e) {
+			this.time = e.target.value
 		}
+
 	}
 </script>
 
 <style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
 
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
-	}
 </style>
