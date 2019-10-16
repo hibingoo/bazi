@@ -6,13 +6,13 @@
 					<view class="uni-title">姓名</view>
 					<view class="uni-list">
 						<view class="uni-list-cell">
-							<input class="uni-input" name="nickname" placeholder="请填写您的昵称" />
+							<input class="uni-input" name="nickname" placeholder="请填写您的昵称" v-model="name" />
 						</view>
 					</view>
 				</view>
 				<view>
-					<view class="uni-title">性别</view>
-					<radio-group class="uni-flex" name="gender">
+					<view class="uni-title">性别{{sex}}</view>
+					<radio-group class="uni-flex" name="gender" @change="radioChange">
 						<label>
 							<radio value="男" />男</label>
 						<label>
@@ -23,11 +23,11 @@
 				<view class="uni-list">
 					<view class="uni-list-cell">
 						<view class="uni-list-cell-left">
-							日期选择
+							当前选择
 						</view>
 						<view class="uni-list-cell-db">
-							<picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
-								<view class="uni-input">{{date}}</view>
+							<picker mode="time" :value="time" start="09:01" end="21:01" @change="bindTimeChange">
+								<view class="uni-input">{{time}}</view>
 							</picker>
 						</view>
 					</view>
@@ -36,11 +36,11 @@
 				<view class="uni-list">
 					<view class="uni-list-cell">
 						<view class="uni-list-cell-left">
-							时间选择
+							当前选择
 						</view>
 						<view class="uni-list-cell-db">
-							<picker mode="time" :value="time" start="09:01" end="21:01" @change="bindTimeChange">
-								<view class="uni-input">{{time}}</view>
+							<picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
+								<view class="uni-input">{{date}}</view>
 							</picker>
 						</view>
 					</view>
@@ -56,8 +56,9 @@
 </template>
 
 <script>
-	var  graceChecker = require("../../common/graceChecker.js");
-	
+	var api = require('@/common/api.js');
+	var graceChecker = require("../../common/graceChecker.js");
+
 	function getDate(type) {
 		const date = new Date();
 
@@ -83,10 +84,15 @@
 				}),
 				startDate: getDate('start'),
 				endDate: getDate('end'),
-				time: '12:01'
+				time: '12:01',
+				name: '',
+				sex:''
+				
+				
 			}
 		},
 		methods: {
+
 			formSubmit: function(e) {
 				//将下列代码加入到对应的检查位置
 				//定义表单规则
@@ -111,6 +117,19 @@
 						title: "验证通过!",
 						icon: "none"
 					});
+					//console.log(this.name)
+					api.post({
+						url: 'birthday/birthday/index',
+						data: {
+							name: this.name,
+							data: this.date,
+							time: this.time,
+							sex: this.sex
+						},
+						success: data => {
+							console.log(data)
+						}
+					});
 				} else {
 					uni.showToast({
 						title: graceChecker.error,
@@ -121,15 +140,32 @@
 			formReset: function(e) {
 				console.log("清空数据")
 				this.chosen = ''
+			},
+			radioChange: function(e) {
+				this.sex = e.detail.value
+			},
+			bindDateChange: function(e) {
+				this.date = e.target.value
+			},
+			bindTimeChange: function(e) {
+				this.time = e.target.value
+			},
+			send() { //发送反馈
+
+				// 	api.post({
+				// 		url: 'feedback/feedback/index',
+				// 		data: {
+				// 			content: this.content,
+				// 			contact: this.contact
+				// 		},
+				// 		success: data => {
+				// 			console.log(data)
+				// 		}
+				// 	});
 			}
 		},
 
-		bindDateChange: function(e) {
-			this.date = e.target.value
-		},
-		bindTimeChange: function(e) {
-			this.time = e.target.value
-		}
+
 
 	}
 </script>
