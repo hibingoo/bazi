@@ -16,7 +16,25 @@
 				"navigationBarTitleText": "我的信息"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/paipan/paipan",
+            "style" : {
+				"navigationBarTitleText": "命盘信息"
+			}
+        }
+        ,{
+            "path" : "pages/login/login",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/register/register",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/information/information",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

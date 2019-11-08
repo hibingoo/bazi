@@ -18,7 +18,7 @@ var device_type = 'wxapp'
 
 var app = getApp();
 
-var host = "http://ssl.hibingoo.com"; //替换为自己的域名,小程序需要https
+var host = "http://abc.hibingoo.com"; //替换为自己的域名,小程序需要https
 var socketUrl = "wss://hrai.online:39005/"; //替换为自己的websocket地址,小程序需要wss
 
 module.exports = {

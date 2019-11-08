@@ -1,6 +1,18 @@
 import Vue from 'vue'
 import App from './App'
 
+Vue.prototype.islogin = function() {
+	var isLogin = uni.getStorageSync('login');
+	if (!isLogin) {
+		uni.navigateTo({
+			url: '../login/login'
+		});
+		return false
+	}else{
+		return true
+	}
+}
+
 import pageHead from './components/page-head.vue'
 Vue.component('page-head',pageHead)
 
