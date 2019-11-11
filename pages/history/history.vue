@@ -78,10 +78,17 @@
 				},
 				success: data => {
 					console.log(data)
+					uni.setStorage({
+					    key: 'paipan_key',
+					    data: data,
+					    success: function () {
+					        console.log('success',data);
+					    }
+					});
+					uni.navigateTo({
+						url: '../paipan/paipan'
+					});
 				}
-			});
-			uni.navigateTo({
-				url: '../paipan/paipan'
 			});
 			console.log('点击内容是'+e.index+e.content.text)
 		} else{

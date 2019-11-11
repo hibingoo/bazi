@@ -75,6 +75,10 @@
 		components: {
 			zanCalendar
 		},
+		onLoad() {
+			
+
+		},
 		methods: {
 			//示例，展示三种不同的选择调度
 			showDateDialog: function(type, lunarType) {
@@ -171,12 +175,24 @@
 
 						},
 						success: data => {
-							console.log(data)
-						}
+							//console.log(data)
+							uni.setStorage({
+							    key: 'paipan_key',
+							    data: data,
+							    success: function () {
+							        console.log('success',data);
+							    }
+							});
+							uni.navigateTo({
+								url: '../paipan/paipan'
+							});
+							
+							 
+						},
+						
+						
 					});
-					uni.navigateTo({
-						url: '../paipan/paipan'
-					});
+					
 				} else {
 					uni.showToast({
 						title: graceChecker.error,

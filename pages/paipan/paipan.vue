@@ -5,19 +5,19 @@
 			<uni-grid :column="4" :show-border="true" :square="true" :hor="35" :ver="-45" @change="change">
 				<uni-grid-item marker="dot">
 
-					<text class="text">新浪</text>
+					<text class="text" :sgindex="sgindex" :range="tg" range-key="name">{{tg[sgindex].name}}</text>
 				</uni-grid-item>
 				<uni-grid-item marker="badge" text="99" type="success">
-					
-					<text class="text">微信</text>
+
+					<text class="text" :value="rgindex" :range="tg" range-key="name">{{tg[rgindex].name}}</text>
 				</uni-grid-item>
 				<uni-grid-item marker="badge" type="error" text="热">
-					
-					<text class="text">QQ</text>
+
+					<text class="text" :value="ygindex" :range="tg" range-key="name">{{tg[ygindex].name}}</text>
 				</uni-grid-item>
 				<uni-grid-item :hor="35" :ver="-45" :img-width="25" marker="image" src="https://img-cdn-qiniu.dcloud.net.cn/uni-ui/recommend.png">
-					
-					<text class="text">抖音</text>
+
+					<text class="text" :value="ngindex" :range="tg" range-key="name">{{tg[ngindex].name}}</text>
 				</uni-grid-item>
 			</uni-grid>
 		</view>
@@ -25,20 +25,20 @@
 		<view class="example-body">
 			<uni-grid :column="4" :show-border="true" :square="true" :hor="35" :ver="-45" @change="change">
 				<uni-grid-item marker="dot">
-		
-					<text class="text">新浪</text>
+
+					<text class="text" :value="szindex" :range="dz" range-key="name">{{dz[szindex].name}}</text>
 				</uni-grid-item>
 				<uni-grid-item marker="badge" text="99" type="success">
-					
-					<text class="text">微信</text>
+
+					<text class="text" :value="rzindex" :range="dz" range-key="name">{{dz[rzindex].name}}</text>
 				</uni-grid-item>
 				<uni-grid-item marker="badge" type="error" text="热">
-					
-					<text class="text">QQ</text>
+
+					<text class="text" :value="yzindex" :range="dz" range-key="name">{{dz[yzindex].name}}</text>
 				</uni-grid-item>
 				<uni-grid-item :hor="35" :ver="-45" :img-width="25" marker="image" src="https://img-cdn-qiniu.dcloud.net.cn/uni-ui/recommend.png">
-					
-					<text class="text">抖音</text>
+
+					<text class="text" :value="nzindex" :range="dz" range-key="name">{{dz[nzindex].name}}</text>
 				</uni-grid-item>
 			</uni-grid>
 		</view>
@@ -55,35 +55,104 @@
 		},
 		data() {
 			return {
+				list: '',
 				tg: [{
-						text: '新浪'
+						name: '甲'
 					},
 					{
-						text: '微信'
+						name: '乙'
 					},
 					{
-						text: 'QQ'
+						name: '丙'
 					},
 					{
-						text: '抖音'
+						name: '丁'
 					},
-
+					{
+						name: '戊'
+					},
+					{
+						name: '己'
+					},
+					{
+						name: '庚'
+					},
+					{
+						name: '辛'
+					},
+					{
+						name: '壬'
+					},
+					{
+						name: '癸'
+					},
 				],
 				dz: [{
-						text: '新浪'
+						name: '子'
 					},
 					{
-						text: '微信'
+						name: '丑'
 					},
 					{
-						text: 'QQ'
+						name: '寅'
 					},
 					{
-						text: '抖音'
+						name: '卯'
 					},
-				
-				]
+					{
+						name: '辰'
+					},
+					{
+						name: '巳'
+					},
+					{
+						name: '午'
+					},
+					{
+						name: '未'
+					},
+					{
+						name: '申'
+					},
+					{
+						name: '酉'
+					},
+					{
+						name: '戌'
+					},
+					{
+						name: '亥'
+					},
+				],
+				sgindex: '',
+				rgindex: '',
+				ygindex: '',
+				ngindex: '',
+				szindex: '',
+				rzindex: '',
+				yzindex: '',
+				nzindex: '',
 			}
+		},
+
+		onLoad() {
+		
+			uni.getStorage({
+				key: 'paipan_key',
+				success: data => {
+					//console.log(data);
+					this.list = data.data.data
+					this.sgindex = data.data.data.tg[3]
+					this.rgindex = data.data.data.tg[2]
+					this.ygindex = data.data.data.tg[1]
+					this.ngindex = data.data.data.tg[0]
+					this.szindex = data.data.data.dz[3]
+					this.rzindex = data.data.data.dz[2]
+					this.yzindex = data.data.data.dz[1]
+					this.nzindex = data.data.data.dz[0]
+				},
+				
+			});
 		},
 		methods: {
 			change(e) {
