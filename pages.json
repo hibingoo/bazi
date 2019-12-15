@@ -27,9 +27,13 @@
             "style" : {}
         }
         ,{
-            "path" : "pages/register/register",
+            "path" : "pages/login/register",
             "style" : {}
         }
+		,{
+		    "path" : "pages/login/forget",
+		    "style" : {}
+		}
         ,{
             "path" : "pages/information/information",
             "style" : {}
@@ -37,9 +41,10 @@
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
+		"navigationBarTitleText": "明玄",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"backgroundColor": "#F8F8F8",
+		"navigationStyle": "custom"
 	},
 	"tabBar": {
 		"color": "#7A7E83",
